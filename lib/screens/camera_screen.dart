@@ -91,7 +91,9 @@ class _CameraScreenState extends State<CameraScreen> {
   }
 
   Future<void> _takePicture() async {
-    if (!_isInitialized || _controller == null || !_controller!.value.isInitialized) {
+    if (!_isInitialized ||
+        _controller == null ||
+        !_controller!.value.isInitialized) {
       return;
     }
 
@@ -102,7 +104,7 @@ class _CameraScreenState extends State<CameraScreen> {
     try {
       // Take picture
       final image = await _controller!.takePicture();
-      
+
       // Get distance and speed
       final distance = _tracker?.totalDistanceKm ?? 0.0;
       final speed = _tracker?.currentSpeedKmh ?? 0.0;
@@ -118,7 +120,7 @@ class _CameraScreenState extends State<CameraScreen> {
       final timestamp = DateTime.now();
       final filename = 'walk_${timestamp.millisecondsSinceEpoch}.png';
       final imagePath = await _storageService.getImagePath(filename);
-      
+
       final file = File(imagePath);
       await file.writeAsBytes(processedBytes);
 
@@ -161,9 +163,7 @@ class _CameraScreenState extends State<CameraScreen> {
     if (!_isInitialized) {
       return Scaffold(
         backgroundColor: Colors.black,
-        body: const Center(
-          child: CircularProgressIndicator(),
-        ),
+        body: const Center(child: CircularProgressIndicator()),
       );
     }
 
@@ -173,23 +173,13 @@ class _CameraScreenState extends State<CameraScreen> {
         children: [
           // Camera preview
           CameraPreview(_controller!),
-          
+
           // Overlay stats
-          Positioned(
-            top: 60,
-            left: 0,
-            right: 0,
-            child: _buildStatsOverlay(),
-          ),
-          
+          Positioned(top: 60, left: 0, right: 0, child: _buildStatsOverlay()),
+
           // Control buttons
-          Positioned(
-            bottom: 50,
-            left: 0,
-            right: 0,
-            child: _buildControls(),
-          ),
-          
+          Positioned(bottom: 50, left: 0, right: 0, child: _buildControls()),
+
           // Back button
           Positioned(
             top: 50,
@@ -267,13 +257,15 @@ class _CameraScreenState extends State<CameraScreen> {
         Container(
           margin: const EdgeInsets.only(bottom: 30),
           child: ElevatedButton(
-            onPressed: _isProcessing ? null : () {
-              if (_isTracking) {
-                _stopTracking();
-              } else {
-                _startTracking();
-              }
-            },
+            onPressed: _isProcessing
+                ? null
+                : () {
+                    if (_isTracking) {
+                      _stopTracking();
+                    } else {
+                      _startTracking();
+                    }
+                  },
             style: ElevatedButton.styleFrom(
               backgroundColor: _isTracking ? Colors.green : Colors.grey,
               padding: const EdgeInsets.symmetric(horizontal: 30, vertical: 12),
@@ -301,7 +293,7 @@ class _CameraScreenState extends State<CameraScreen> {
             ),
           ),
         ),
-        
+
         // Capture button
         GestureDetector(
           onTap: _isProcessing ? null : _takePicture,
@@ -318,7 +310,11 @@ class _CameraScreenState extends State<CameraScreen> {
                     child: CircularProgressIndicator(color: Colors.white),
                   )
                 : const Center(
-                    child: Icon(Icons.camera_alt, color: Colors.white, size: 35),
+                    child: Icon(
+                      Icons.camera_alt,
+                      color: Colors.white,
+                      size: 35,
+                    ),
                   ),
           ),
         ),

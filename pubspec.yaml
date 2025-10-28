@@ -40,6 +40,9 @@ dependencies:
   image: ^4.3.0
   path_provider: ^2.1.2
   
+  # Maps
+  google_maps_flutter: ^2.9.0
+  
   # Location
   geolocator: ^13.0.0
   

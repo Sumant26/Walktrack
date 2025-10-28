@@ -40,10 +40,8 @@ class _HomeScreenState extends State<HomeScreen> {
         centerTitle: true,
         elevation: 0,
       ),
-      body: _images.isEmpty
-          ? _buildEmptyState()
-          : _buildImageGrid(),
-      floatingActionButton: FloatingActionButton(
+      body: _images.isEmpty ? _buildEmptyState() : _buildImageGrid(),
+      floatingActionButton: FloatingActionButton.extended(
         onPressed: () async {
           final result = await Navigator.push(
             context,
@@ -53,7 +51,12 @@ class _HomeScreenState extends State<HomeScreen> {
             _loadImages();
           }
         },
-        child: const Icon(Icons.camera_alt),
+        icon: const Icon(Icons.play_arrow),
+        label: const Text(
+          'Start Session',
+          style: TextStyle(fontWeight: FontWeight.bold),
+        ),
+        backgroundColor: Colors.green,
       ),
     );
   }
@@ -63,11 +66,7 @@ class _HomeScreenState extends State<HomeScreen> {
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          Icon(
-            Icons.directions_walk,
-            size: 100,
-            color: Colors.grey[600],
-          ),
+          Icon(Icons.directions_walk, size: 100, color: Colors.grey[600]),
           const SizedBox(height: 20),
           Text(
             'No walks recorded yet',
@@ -80,10 +79,7 @@ class _HomeScreenState extends State<HomeScreen> {
           const SizedBox(height: 10),
           Text(
             'Tap the camera button to start',
-            style: TextStyle(
-              fontSize: 16,
-              color: Colors.grey[500],
-            ),
+            style: TextStyle(fontSize: 16, color: Colors.grey[500]),
           ),
         ],
       ),
@@ -138,10 +134,7 @@ class _HomeScreenState extends State<HomeScreen> {
             child: Stack(
               fit: StackFit.expand,
               children: [
-                Image.file(
-                  File(walkImage.imagePath),
-                  fit: BoxFit.cover,
-                ),
+                Image.file(File(walkImage.imagePath), fit: BoxFit.cover),
                 // Gradient overlay for better text visibility
                 Positioned(
                   bottom: 0,
